@@ -3,6 +3,7 @@ const passport = require("passport");
 const Message = require("../models/message");
 const User = require("../models/user");
 const { generatePassword } = require("../lib/password");
+const { isMember } = require("../lib/auth");
 
 const getIndex = async (req, res, next) => {
   try {
@@ -16,9 +17,12 @@ const getIndex = async (req, res, next) => {
   }
 };
 
-const getMembership = (req, res, next) => {
-  res.render("membership");
-};
+const getMembership = [
+  isMember,
+  (req, res, next) => {
+    res.render("membership");
+  },
+];
 
 const postMembership = async (req, res, next) => {
   if (req.body.answer.toLowerCase() === process.env.PASS_CODE.toLowerCase()) {
