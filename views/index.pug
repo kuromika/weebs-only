@@ -5,10 +5,17 @@ block content
   header
     if user 
         a(href='/logout' class='text-purple-700') Log out
-    else 
+    else
       a(href='/login' class='text-red-600') Log in
       a(href='/signup' class='text-blue-900') Sign up
   main
+    if user && user.isMember
+      div
+        h1 Create new message
+        form(method='POST' action='')
+          label(for='message') Message:
+          textarea(name='message' id='message' minlength='1' maxlength='50' required)
+          button(type='submit') Send 
     if messages
       ul
         each message in messages
