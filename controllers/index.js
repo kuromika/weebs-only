@@ -3,7 +3,17 @@ const passport = require("passport");
 const Message = require("../models/message");
 const User = require("../models/user");
 const { generatePassword } = require("../lib/password");
-const { isMember } = require("../lib/auth");
+const { isMember, isAuth } = require("../lib/auth");
+
+const isMemberAlready = (req, res, next) => {
+  if (req.user.isMember) {
+    const err = new Error("You're a member already!");
+    err.status = 401;
+    next(err);
+  } else {
+    next();
+  }
+};
 
 const getIndex = async (req, res, next) => {
   try {
@@ -18,26 +28,31 @@ const getIndex = async (req, res, next) => {
 };
 
 const getMembership = [
-  isMember,
+  isAuth,
+  isMemberAlready,
   (req, res, next) => {
     res.render("membership");
   },
 ];
 
-const postMembership = async (req, res, next) => {
-  if (req.body.answer.toLowerCase() === process.env.PASS_CODE.toLowerCase()) {
-    try {
-      await User.findByIdAndUpdate(req.user.id, { isMember: true }).exec();
-      return res.redirect("/");
-    } catch (err) {
-      return next(err);
+const postMembership = [
+  isAuth,
+  isMemberAlready,
+  async (req, res, next) => {
+    if (req.body.answer.toLowerCase() === process.env.PASS_CODE.toLowerCase()) {
+      try {
+        await User.findByIdAndUpdate(req.user.id, { isMember: true }).exec();
+        return res.redirect("/");
+      } catch (err) {
+        return next(err);
+      }
+    } else {
+      return res.render("membership", {
+        message: "Incorrect answer",
+      });
     }
-  } else {
-    return res.render("membership", {
-      message: "Incorrect answer",
-    });
-  }
-};
+  },
+];
 
 const getSignUp = (req, res, next) => {
   res.render("signup");
@@ -84,18 +99,21 @@ const getLogOut = (req, res, next) => {
   });
 };
 
-const postMessage = async (req, res, next) => {
-  const message = new Message({
-    text: req.body.message,
-    user: req.user,
-  });
-  try {
-    await message.save();
-  } catch (err) {
-    return next(err);
-  }
-  return res.redirect("/");
-};
+const postMessage = [
+  isMember,
+  async (req, res, next) => {
+    const message = new Message({
+      text: req.body.message,
+      user: req.user,
+    });
+    try {
+      await message.save();
+    } catch (err) {
+      return next(err);
+    }
+    return res.redirect("/");
+  },
+];
 
 module.exports = {
   getLogIn,
