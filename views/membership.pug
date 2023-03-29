@@ -1,0 +1,11 @@
+extends layout
+block content
+  main
+    h1 Acquire your membership
+    div
+     img(src='/images/membership.png')
+     p #[strong Question:] What anime should you watch first in the Monogatari series?
+     form(method='POST' action='')
+      label(for='answer') Answer: 
+      input(type='text' name='answer' id='answer')
+     p Hint: Its name contains the 'monster' word (in japanese).
