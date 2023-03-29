@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  main
+    h1 Login Page
+    form(method='POST' action='')
+      div
+        label(for='username') Username (required): 
+        input(type='text' name='username' id='username' required)
+      div
+        label(for='password') Password (required):
+        input(type='password' name='password' id='password' required)
+      button(type='submit') Login

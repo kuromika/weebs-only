@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Index Page
+  header
+    a(href='/login' class='text-red-600') Login
+    a(href='/signup' class='text-blue-900') Sign up
+  main
+    if messages
+      ul
+        each message in messages
+          li #{message.text}, #{message.date}, #{message.user.fakeUsername}
+    

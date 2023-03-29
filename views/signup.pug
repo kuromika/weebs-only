@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  main
+    h1 Create Account
+    form(method='POST' action='')
+      div
+        label(for='username') Username (required): 
+        input(type='text' name='username' id='username' required)
+      div
+        label(for='password') Password (required):
+        input(type='password' name='password' id='password' required)
+      div
+        label(for='admin-pass') Admin Code (leave empty if unkown): 
+        input(type='password' name='admin-pass' id='admin-pass')
+      button(type='submit') Create
