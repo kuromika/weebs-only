@@ -4,10 +4,14 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
-const liveReload = require("livereload");
-const connectLiveReload = require("connect-livereload");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const connection = require("./lib/database");
 
 dotenv.config();
+
+const liveReload = require("livereload");
+const connectLiveReload = require("connect-livereload");
 
 const liveReloadServer = liveReload.createServer();
 liveReloadServer.server.once("connection", () => {
@@ -19,6 +23,22 @@ liveReloadServer.server.once("connection", () => {
 const indexRouter = require("./routes/index");
 
 const app = express();
+
+const sessionStore = new MongoStore({
+  mongoUrl: process.env.MONGODB_DEV,
+  collectionName: "sessions",
+});
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
+  })
+);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
