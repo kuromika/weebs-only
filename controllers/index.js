@@ -1,4 +1,5 @@
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 const Message = require("../models/message");
 const User = require("../models/user");
 const { generatePassword } = require("../lib/password");
@@ -28,4 +29,19 @@ const getLogIn = (req, res, next) => {
   res.render("login");
 };
 
-module.exports = { getLogIn, getSignUp, postSignUp };
+const postLogIn = passport.authenticate("local", {
+  failureRedirect: "/login",
+  failureMessage: "Check your username and password, then try again",
+  successRedirect: "/",
+});
+
+const getLogOut = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    return res.redirect("/");
+  });
+};
+
+module.exports = { getLogIn, getSignUp, postSignUp, postLogIn, getLogOut };
