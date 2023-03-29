@@ -8,4 +8,7 @@ block content
      form(method='POST' action='')
       label(for='answer') Answer: 
       input(type='text' name='answer' id='answer')
+      button(type='submit') Submit
      p Hint: Its name contains the 'monster' word (in japanese).
+     if message
+       p #{message}
