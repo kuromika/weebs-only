@@ -10,6 +10,7 @@ const {
   getIndex,
   getMembership,
   postMembership,
+  postMessage,
 } = require("../controllers/index");
 
 router.get("/", getIndex);
@@ -24,5 +25,7 @@ router.get("/logout", getLogOut);
 
 router.get("/membership", getMembership);
 router.post("/membership", postMembership);
+
+router.post("/", postMessage);
 
 module.exports = router;
