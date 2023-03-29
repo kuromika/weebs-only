@@ -3,14 +3,31 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "buildcss": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css --watch",
+    "serverstart": "DEBUG=kurone:* nodemon ./bin/www"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.14",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "postcss": "^8.4.21",
+    "postcss-cli": "^10.1.0",
+    "pug": "2.0.0-beta11",
+    "tailwindcss": "^3.3.0"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "eslint": "^8.37.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.22",
+    "prettier": "2.8.7"
   }
 }
