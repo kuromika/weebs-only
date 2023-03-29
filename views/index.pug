@@ -3,9 +3,11 @@ extends layout
 block content
   h1 Index Page
   header
-    a(href='/login' class='text-red-600') Log in
-    a(href='/signup' class='text-blue-900') Sign up
-    a(href='/logout' class='text-purple-700') Log out
+    if user 
+        a(href='/logout' class='text-purple-700') Log out
+    else 
+      a(href='/login' class='text-red-600') Log in
+      a(href='/signup' class='text-blue-900') Sign up
   main
     if messages
       ul
