@@ -19,5 +19,5 @@ block content
     if messages
       ul
         each message in messages
-          li #{message.text}, #{message.date}, #{message.user.fakeUsername}
+          li #{message.text}, #{message.dateFormatted}, #{message.user.fakeUsername}
     
