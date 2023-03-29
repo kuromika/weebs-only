@@ -4,9 +4,11 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
+const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const connection = require("./lib/database");
+require("./lib/passport");
 
 dotenv.config();
 
@@ -39,6 +41,15 @@ app.use(
     },
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  console.log(req.session);
+  console.log(req.user);
+  next();
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
