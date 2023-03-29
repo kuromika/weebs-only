@@ -6,7 +6,7 @@ const { generatePassword } = require("../lib/password");
 
 const getIndex = async (req, res, next) => {
   try {
-    const messages = Message.find({}).sort({ date: 1 }).exec();
+    const messages = await Message.find({}).sort({ date: 1 }).exec();
     return res.render("index", {
       user: req.user,
       messages,
@@ -80,6 +80,19 @@ const getLogOut = (req, res, next) => {
   });
 };
 
+const postMessage = async (req, res, next) => {
+  const message = new Message({
+    text: req.body.message,
+    user: req.user,
+  });
+  try {
+    await message.save();
+  } catch (err) {
+    return next(err);
+  }
+  return res.redirect("/");
+};
+
 module.exports = {
   getLogIn,
   getSignUp,
@@ -89,4 +102,5 @@ module.exports = {
   getIndex,
   getMembership,
   postMembership,
+  postMessage,
 };
