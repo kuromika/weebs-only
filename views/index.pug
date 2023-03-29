@@ -5,11 +5,14 @@ block content
   header
     if user 
         a(href='/logout' class='text-purple-700') Log out
+        if !user.isMember
+          a(href='/membership' class='text-green-700') Become a member
     else
       a(href='/login' class='text-red-600') Log in
       a(href='/signup' class='text-blue-900') Sign up
   main
-    if user && user.isMember
+    - var isMember = user && user.isMember
+    if isMember
       div
         h1 Create new message
         form(method='POST' action='')
@@ -19,5 +22,9 @@ block content
     if messages
       ul
         each message in messages
-          li #{message.text}, #{message.dateFormatted}, #{message.user.fakeUsername}
+          li
+            div
+              p #{isMember? message.user.username : message.user.fakeUsername}
+              p #{isMember? message.dateFormatted : 'hidden date'}
+              p #{message.text}
     
