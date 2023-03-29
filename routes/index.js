@@ -6,11 +6,10 @@ const {
   postSignUp,
   postLogIn,
   getLogOut,
+  getIndex,
 } = require("../controllers/index");
 
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
-});
+router.get("/", getIndex);
 
 router.get("/signup", getSignUp);
 router.post("/signup", postSignUp);
