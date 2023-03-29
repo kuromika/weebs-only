@@ -17,7 +17,10 @@ const isMemberAlready = (req, res, next) => {
 
 const getIndex = async (req, res, next) => {
   try {
-    const messages = await Message.find({}).sort({ date: 1 }).exec();
+    const messages = await Message.find({})
+      .sort({ date: 1 })
+      .populate("user")
+      .exec();
     return res.render("index", {
       user: req.user,
       messages,
@@ -68,7 +71,7 @@ const postSignUp = async (req, res, next) => {
     username: req.body.username,
     hash: genHash,
     salt,
-    fakerUsername: `Weeb Member ${userCount.toString().padStart(3, "0")}`,
+    fakeUsername: `Weeb Member ${userCount.toString().padStart(3, "0")}`,
     isMember: isAdmin,
     isAdmin,
   });
