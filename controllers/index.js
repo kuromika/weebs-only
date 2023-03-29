@@ -30,7 +30,7 @@ const postMembership = async (req, res, next) => {
     }
   } else {
     return res.render("membership", {
-      message: "Invalid answer",
+      message: "Incorrect answer",
     });
   }
 };
@@ -41,7 +41,7 @@ const getSignUp = (req, res, next) => {
 
 const postSignUp = async (req, res, next) => {
   const { salt, genHash } = generatePassword(req.body.password);
-  const userCount = await User.countDocuments({});
+  const userCount = await User.countDocuments({}).exec();
   const newUser = new User({
     username: req.body.username,
     hash: genHash,
@@ -83,4 +83,5 @@ module.exports = {
   getLogOut,
   getIndex,
   getMembership,
+  postMembership,
 };
