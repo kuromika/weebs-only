@@ -42,11 +42,16 @@ const getSignUp = (req, res, next) => {
 const postSignUp = async (req, res, next) => {
   const { salt, genHash } = generatePassword(req.body.password);
   const userCount = await User.countDocuments({}).exec();
+  const isAdmin =
+    req.body["admin-pass"].toLowerCase() ===
+    process.env.ADMIN_CODE.toLowerCase();
   const newUser = new User({
     username: req.body.username,
     hash: genHash,
     salt,
     fakerUsername: `Weeb Member ${userCount.toString().padStart(3, "0")}`,
+    isMember: isAdmin,
+    isAdmin,
   });
   try {
     await newUser.save();
