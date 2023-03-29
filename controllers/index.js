@@ -4,6 +4,18 @@ const Message = require("../models/message");
 const User = require("../models/user");
 const { generatePassword } = require("../lib/password");
 
+const getIndex = async (req, res, next) => {
+  try {
+    const messages = Message.find({}).sort({ date: 1 }).exec();
+    return res.render("index", {
+      user: req.user,
+      messages,
+    });
+  } catch (err) {
+    return next(err);
+  }
+};
+
 const getSignUp = (req, res, next) => {
   res.render("signup");
 };
@@ -44,4 +56,11 @@ const getLogOut = (req, res, next) => {
   });
 };
 
-module.exports = { getLogIn, getSignUp, postSignUp, postLogIn, getLogOut };
+module.exports = {
+  getLogIn,
+  getSignUp,
+  postSignUp,
+  postLogIn,
+  getLogOut,
+  getIndex,
+};
