@@ -16,6 +16,25 @@ const getIndex = async (req, res, next) => {
   }
 };
 
+const getMembership = (req, res, next) => {
+  res.render("membership");
+};
+
+const postMembership = async (req, res, next) => {
+  if (req.body.answer.toLowerCase() === process.env.PASS_CODE.toLowerCase()) {
+    try {
+      await User.findByIdAndUpdate(req.user.id, { isMember: true }).exec();
+      return res.redirect("/");
+    } catch (err) {
+      return next(err);
+    }
+  } else {
+    return res.render("membership", {
+      message: "Invalid answer",
+    });
+  }
+};
+
 const getSignUp = (req, res, next) => {
   res.render("signup");
 };
@@ -63,4 +82,5 @@ module.exports = {
   postLogIn,
   getLogOut,
   getIndex,
+  getMembership,
 };
