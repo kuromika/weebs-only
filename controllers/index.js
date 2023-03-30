@@ -1,4 +1,3 @@
-const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const Message = require("../models/message");
 const User = require("../models/user");
@@ -16,10 +15,19 @@ const isMemberAlready = (req, res, next) => {
   }
 };
 
+const handleUploadError = (err, req, res, next) => {
+  if (err) {
+    req.body.error = err.message;
+    next(err);
+    return;
+  }
+  next();
+};
+
 const getIndex = async (req, res, next) => {
   try {
     const messages = await Message.find({})
-      .sort({ date: 1 })
+      .sort({ date: -1 })
       .populate("user")
       .exec();
     return res.render("index", {
@@ -62,27 +70,32 @@ const getSignUp = (req, res, next) => {
   res.render("signup");
 };
 
-const postSignUp = async (req, res, next) => {
-  const { salt, genHash } = generatePassword(req.body.password);
-  const userCount = await User.countDocuments({}).exec();
-  const isAdmin =
-    req.body["admin-pass"].toLowerCase() ===
-    process.env.ADMIN_CODE.toLowerCase();
-  const newUser = new User({
-    username: req.body.username,
-    hash: genHash,
-    salt,
-    fakeUsername: `Weeb Member ${userCount.toString().padStart(3, "0")}`,
-    isMember: isAdmin,
-    isAdmin,
-  });
-  try {
-    await newUser.save();
-  } catch (err) {
-    return next(err);
-  }
-  return res.redirect("/");
-};
+const postSignUp = [
+  upload.single("pfp"),
+  handleUploadError,
+  async (req, res, next) => {
+    const { salt, genHash } = generatePassword(req.body.password);
+    const userCount = await User.countDocuments({}).exec();
+    const isAdmin =
+      req.body["admin-pass"].toLowerCase() ===
+      process.env.ADMIN_CODE.toLowerCase();
+    const newUser = new User({
+      username: req.body.username,
+      profilePicture: `/uploads/${req.file.filename}`,
+      hash: genHash,
+      salt,
+      fakeUsername: `Weeb Member ${userCount.toString().padStart(3, "0")}`,
+      isMember: isAdmin,
+      isAdmin,
+    });
+    try {
+      await newUser.save();
+    } catch (err) {
+      return next(err);
+    }
+    return res.redirect("/");
+  },
+];
 
 const getLogIn = (req, res, next) => {
   res.render("login");
@@ -106,7 +119,6 @@ const getLogOut = (req, res, next) => {
 const postMessage = [
   isMember,
   async (req, res, next) => {
-    console.log(req.body);
     const message = new Message({
       content: req.body.content,
       user: req.user,
@@ -124,14 +136,7 @@ const postMessage = [
 const postImage = [
   isMember,
   upload.single("content"),
-  (err, req, res, next) => {
-    if (err) {
-      req.body.error = err.message;
-      next(err);
-      return;
-    }
-    next();
-  },
+  handleUploadError,
   async (req, res, next) => {
     const message = new Message({
       content: `/uploads/${req.file.filename}`,
