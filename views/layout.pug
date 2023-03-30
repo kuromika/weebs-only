@@ -7,4 +7,19 @@ html
     title Weebs Only
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    header
+      h1 Weebs only
+      nav
+        ul
+          if user 
+              li
+                a(href='/logout' class='text-purple-700') Log out
+              if !user.isMember
+                li
+                  a(href='/membership' class='text-green-700') Become a member
+          else
+            li
+              a(href='/login' class='text-red-600') Log in
+            li
+              a(href='/signup' class='text-blue-900') Sign up
     block content

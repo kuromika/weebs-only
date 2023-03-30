@@ -1,15 +1,6 @@
 extends layout
 
 block content
-  h1 Index Page
-  header
-    if user 
-        a(href='/logout' class='text-purple-700') Log out
-        if !user.isMember
-          a(href='/membership' class='text-green-700') Become a member
-    else
-      a(href='/login' class='text-red-600') Log in
-      a(href='/signup' class='text-blue-900') Sign up
   main
     - var isMember = user && user.isMember
     if isMember
@@ -20,7 +11,7 @@ block content
           textarea(name='content' id='message' minlength='1' maxlength='50' required)
           button(type='submit') Send 
         form(method='POST' action='/sendimage' enctype='multipart/form-data')
-          input(type='file' name='content' required accept='.png,.jpg,.jpeg,.webp')
+          input(type='file' name='content' required accept='.png,.jpg,.jpeg,.web')
           button(type='submit') Send image
     else
       p Only logged-in members can create messages and see the creator and date of previous messages. 
