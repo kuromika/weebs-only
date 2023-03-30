@@ -404,14 +404,105 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.sticky{
+  position: sticky;
+}
+.top-0{
+  top: 0px;
+}
+.mb-2{
+  margin-bottom: 0.5rem;
+}
 .block{
   display: block;
+}
+.flex{
+  display: flex;
 }
 .hidden{
   display: none;
 }
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.items-center{
+  align-items: center;
+}
+.justify-around{
+  justify-content: space-around;
+}
+.gap-2{
+  gap: 0.5rem;
+}
+.gap-3{
+  gap: 0.75rem;
+}
+.gap-4{
+  gap: 1rem;
+}
+.gap-1{
+  gap: 0.25rem;
+}
+.scroll-smooth{
+  scroll-behavior: smooth;
+}
+.rounded{
+  border-radius: 0.25rem;
+}
+.border{
+  border-width: 1px;
+}
+.border-\[\#F7F6F5\]{
+  --tw-border-opacity: 1;
+  border-color: rgb(247 246 245 / var(--tw-border-opacity));
+}
+.bg-\[\#543550\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(84 53 80 / var(--tw-bg-opacity));
+}
+.bg-\[\#F7F6F5\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(247 246 245 / var(--tw-bg-opacity));
+}
+.bg-\[\#6D4266\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(109 66 102 / var(--tw-bg-opacity));
+}
+.p-2{
+  padding: 0.5rem;
+}
+.pb-2{
+  padding-bottom: 0.5rem;
+}
+.pt-2{
+  padding-top: 0.5rem;
+}
+.pb-3{
+  padding-bottom: 0.75rem;
+}
+.pt-3{
+  padding-top: 0.75rem;
+}
 .font-PT{
   font-family: PT sans, sans;
+}
+.text-xl{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-sm{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.font-bold{
+  font-weight: 700;
+}
+.capitalize{
+  text-transform: capitalize;
 }
 .text-blue-900{
   --tw-text-opacity: 1;
@@ -428,4 +519,22 @@ video {
 .text-red-600{
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+.text-\[\#D3C7B8\]{
+  --tw-text-opacity: 1;
+  color: rgb(211 199 184 / var(--tw-text-opacity));
+}
+.text-\[\#543550\]{
+  --tw-text-opacity: 1;
+  color: rgb(84 53 80 / var(--tw-text-opacity));
+}
+.text-\[\#F7F6F5\]{
+  --tw-text-opacity: 1;
+  color: rgb(247 246 245 / var(--tw-text-opacity));
+}
+@media (min-width: 640px){
+  .sm\:text-5xl{
+    font-size: 3rem;
+    line-height: 1;
+  }
 }
