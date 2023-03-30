@@ -4,6 +4,7 @@ const Message = require("../models/message");
 const User = require("../models/user");
 const { generatePassword } = require("../lib/password");
 const { isMember, isAuth } = require("../lib/auth");
+const upload = require("../lib/multer");
 
 const isMemberAlready = (req, res, next) => {
   if (req.user.isMember) {
@@ -105,8 +106,36 @@ const getLogOut = (req, res, next) => {
 const postMessage = [
   isMember,
   async (req, res, next) => {
+    console.log(req.body);
     const message = new Message({
-      text: req.body.message,
+      content: req.body.content,
+      user: req.user,
+      type: "text",
+    });
+    try {
+      await message.save();
+    } catch (err) {
+      return next(err);
+    }
+    return res.redirect("/");
+  },
+];
+
+const postImage = [
+  isMember,
+  upload.single("content"),
+  (err, req, res, next) => {
+    if (err) {
+      req.body.error = err.message;
+      next(err);
+      return;
+    }
+    next();
+  },
+  async (req, res, next) => {
+    const message = new Message({
+      content: `/uploads/${req.file.filename}`,
+      type: "image",
       user: req.user,
     });
     try {
@@ -119,6 +148,7 @@ const postMessage = [
 ];
 
 module.exports = {
+  postImage,
   getLogIn,
   getSignUp,
   postSignUp,
