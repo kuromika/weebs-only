@@ -20,7 +20,7 @@ block content
           textarea(name='content' id='message' minlength='1' maxlength='50' required)
           button(type='submit') Send 
         form(method='POST' action='/sendimage' enctype='multipart/form-data')
-          input(type='file' name='content' required)
+          input(type='file' name='content' required accept='.png,.jpg,.jpeg,.webp')
           button(type='submit') Send image
     else
       p Only logged-in members can create messages and see the creator and date of previous messages. 
@@ -29,6 +29,7 @@ block content
         each message in messages
           li
             div
+              img(src=message.user.profilePicture)
               p #{isMember? message.user.username : message.user.fakeUsername}
               p #{isMember? message.dateFormatted : 'hidden date'}
               if message.type === 'text'
