@@ -533,8 +533,19 @@ video {
   color: rgb(247 246 245 / var(--tw-text-opacity));
 }
 @media (min-width: 640px){
+  .sm\:gap-4{
+    gap: 1rem;
+  }
   .sm\:text-5xl{
     font-size: 3rem;
     line-height: 1;
+  }
+  .sm\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .sm\:text-base{
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
