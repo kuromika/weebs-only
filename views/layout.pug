@@ -6,10 +6,10 @@ html(class='scroll-smooth')
     meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
     title Weebs Only
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    header(class='flex justify-around items-center bg-[#543550] pt-3 pb-3 mb-2 sticky top-0')
+  body(class='font-PT bg-[#F7F6F5] flex flex-col items-center')
+    header(class='flex justify-around items-center bg-[#543550] w-full pt-3 pb-3 mb-2 sticky top-0')
       a(href='/')
-        h1(class='text-xl text-[#F7F6F5] font-bold sm:text-2xl') Weebs 
+        h1(class='text-xl text-[#F7F6F5] font-bold sm:text-3xl') Weebs 
           span(class='capitalize') only
       nav
         ul(class='flex gap-2 text-sm sm:text-base sm:gap-4')
@@ -24,4 +24,5 @@ html(class='scroll-smooth')
               a(href='/signup' class='font-bold p-2 rounded bg-[#F7F6F5] text-[#543550] ' ) Sign up
             li
               a(href='/login' class='font-bold p-2 rounded bg-[#6D4266] text-[#F7F6F5]  border-[#F7F6F5] border ' ) Log in
-    block content
+    main(class='p-2 max-w-3xl pb-5')
+      block content
