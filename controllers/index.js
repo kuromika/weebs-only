@@ -30,9 +30,12 @@ const getIndex = async (req, res, next) => {
       .sort({ date: -1 })
       .populate("user")
       .exec();
+    const alertMessage = req.session.alert;
+    delete req.session.alert;
     return res.render("index", {
       user: req.user,
       messages,
+      alert: alertMessage,
     });
   } catch (err) {
     return next(err);
@@ -54,6 +57,7 @@ const postMembership = [
     if (req.body.answer.toLowerCase() === process.env.PASS_CODE.toLowerCase()) {
       try {
         await User.findByIdAndUpdate(req.user.id, { isMember: true }).exec();
+        req.session.alert = "Congratulations! You are a member now.";
         return res.redirect("/");
       } catch (err) {
         return next(err);
@@ -93,6 +97,7 @@ const postSignUp = [
     } catch (err) {
       return next(err);
     }
+    req.session.alert = "Your user has been created, you may log in now.";
     return res.redirect("/");
   },
 ];
