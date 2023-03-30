@@ -46,7 +46,9 @@ const getMembership = [
   isAuth,
   isMemberAlready,
   (req, res, next) => {
-    res.render("membership");
+    res.render("membership", {
+      user: req.user,
+    });
   },
 ];
 
@@ -65,13 +67,16 @@ const postMembership = [
     } else {
       return res.render("membership", {
         message: "Incorrect answer",
+        user: req.user,
       });
     }
   },
 ];
 
 const getSignUp = (req, res, next) => {
-  res.render("signup");
+  res.render("signup", {
+    user: req.user,
+  });
 };
 
 const postSignUp = [
@@ -103,7 +108,9 @@ const postSignUp = [
 ];
 
 const getLogIn = (req, res, next) => {
-  res.render("login");
+  res.render("login", {
+    user: req.user,
+  });
 };
 
 const postLogIn = passport.authenticate("local", {
