@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 const { DateTime } = require("luxon");
 
 const MessageSchema = new mongoose.Schema({
-  text: { type: String, required: true },
+  content: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  type: { type: String, enum: ["text", "image"], required: true },
 });
 
 MessageSchema.virtual("dateFormatted").get(function getDate() {
