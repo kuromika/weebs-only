@@ -2,6 +2,8 @@ extends layout
 
 block content
   main
+    if alert
+      p #{alert}
     - var isMember = user && user.isMember
     if isMember
       div
