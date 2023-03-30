@@ -19,6 +19,8 @@ block content
           label(for='message') Message:
           textarea(name='message' id='message' minlength='1' maxlength='50' required)
           button(type='submit') Send 
+    else
+      p Only logged-in members can create messages and see the creator and date of previous messages. 
     if messages
       ul
         each message in messages
