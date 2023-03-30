@@ -11,6 +11,7 @@ const {
   getMembership,
   postMembership,
   postMessage,
+  postImage,
 } = require("../controllers/index");
 
 router.get("/", getIndex);
@@ -26,6 +27,7 @@ router.get("/logout", getLogOut);
 router.get("/membership", getMembership);
 router.post("/membership", postMembership);
 
-router.post("/", postMessage);
+router.post("/sendtext", postMessage);
+router.post("/sendimage", postImage);
 
 module.exports = router;
