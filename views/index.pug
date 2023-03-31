@@ -9,7 +9,7 @@ block content
         div(class='flex flex-col gap-5 bg-[#6D4266] text-[#F7F6F5] relative rounded-3xl p-7 pb-16 sm:p-7')
           h2(class='text-center text-xl font-bold') New message
           form(method='POST' action='/sendtext' class='flex flex-col gap-4')
-            textarea(name='content' id='message' minlength='1' maxlength='50' class=' border-[#D3C7B8] border rounded p-3 bg-[#6D4266]' placeholder="What's happening?" required)
+            textarea(name='content' id='message' minlength='1' maxlength='280' class=' border-[#D3C7B8] border rounded p-3 bg-[#6D4266]' placeholder="What's happening?" required)
             button(type='submit' class='self-end p-4 pt-2 pb-2 bg-[#F7F6F5] text-[#6D4266] rounded-xl font-bold') Send text
           form(method='POST' action='/sendimage' class='flex flex-col gap-2 bottom-4 absolute sm:flex-row sm:bottom-7' enctype='multipart/form-data')
             label(for='image' class=' p-4 pt-2 pb-2 cursor-pointer rounded bg-[#6D4266] text-[#F7F6F5] text-center font-bold border-[#F7F6F5] border') Upload 
