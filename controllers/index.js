@@ -114,6 +114,13 @@ const postSignUp = [
     try {
       await newUser.save();
     } catch (err) {
+      if (err.code === 11000) {
+        const error = new Error(
+          "Username is already taken, try a different one"
+        );
+        error.status = 409;
+        return next(error);
+      }
       return next(err);
     }
     req.session.alert = "Your user has been created, you may log in now.";
