@@ -473,6 +473,9 @@ video {
 .mt-5{
   margin-top: 1.25rem;
 }
+.ml-auto{
+  margin-left: auto;
+}
 .block{
   display: block;
 }
@@ -771,6 +774,12 @@ video {
 }
 .pt-8{
   padding-top: 2rem;
+}
+.pb-1{
+  padding-bottom: 0.25rem;
+}
+.pt-1{
+  padding-top: 0.25rem;
 }
 .text-center{
   text-align: center;
