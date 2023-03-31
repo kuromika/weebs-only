@@ -2,7 +2,7 @@ const passport = require("passport");
 const Message = require("../models/message");
 const User = require("../models/user");
 const { generatePassword } = require("../lib/password");
-const { isMember, isAuth } = require("../lib/auth");
+const { isMember, isAuth, isAdmin } = require("../lib/auth");
 const upload = require("../lib/multer");
 
 const isMemberAlready = (req, res, next) => {
@@ -187,7 +187,20 @@ const postImage = [
   },
 ];
 
+const postDeleteMessage = [
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      await Message.findByIdAndDelete(req.body.message);
+      res.redirect("/");
+    } catch (err) {
+      next(err);
+    }
+  },
+];
+
 module.exports = {
+  postDeleteMessage,
   postImage,
   getLogIn,
   getSignUp,
