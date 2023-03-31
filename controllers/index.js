@@ -15,6 +15,16 @@ const isMemberAlready = (req, res, next) => {
   }
 };
 
+const isAuthAlready = (req, res, next) => {
+  if (req.user) {
+    const err = new Error("You're currently logged in!");
+    err.status = 401;
+    next(err);
+  } else {
+    next();
+  }
+};
+
 const handleUploadError = (err, req, res, next) => {
   if (err) {
     req.body.error = err.message;
@@ -73,13 +83,17 @@ const postMembership = [
   },
 ];
 
-const getSignUp = (req, res, next) => {
-  res.render("signup", {
-    user: req.user,
-  });
-};
+const getSignUp = [
+  isAuthAlready,
+  (req, res, next) => {
+    res.render("signup", {
+      user: req.user,
+    });
+  },
+];
 
 const postSignUp = [
+  isAuthAlready,
   upload.single("pfp"),
   handleUploadError,
   async (req, res, next) => {
@@ -107,17 +121,26 @@ const postSignUp = [
   },
 ];
 
-const getLogIn = (req, res, next) => {
-  res.render("login", {
-    user: req.user,
-  });
-};
+const getLogIn = [
+  isAuthAlready,
+  (req, res, next) => {
+    res.render("login", {
+      user: req.user,
+      message: req.session.messages
+        ? req.session.messages[req.session.messages.length - 1]
+        : "",
+    });
+  },
+];
 
-const postLogIn = passport.authenticate("local", {
-  failureRedirect: "/login",
-  failureMessage: "Check your username and password, then try again",
-  successRedirect: "/",
-});
+const postLogIn = [
+  isAuthAlready,
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureMessage: "Check your username and password, then try again",
+    successRedirect: "/",
+  }),
+];
 
 const getLogOut = (req, res, next) => {
   req.logout((err) => {
