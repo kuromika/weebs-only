@@ -12,16 +12,6 @@ require("./lib/passport");
 
 dotenv.config();
 
-const liveReload = require("livereload");
-const connectLiveReload = require("connect-livereload");
-
-const liveReloadServer = liveReload.createServer();
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
-});
-
 const indexRouter = require("./routes/index");
 
 const app = express();
@@ -53,8 +43,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  console.log(req.session);
-  console.log(req.user);
   next();
 });
 
@@ -67,7 +55,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(connectLiveReload());
 
 app.use("/", indexRouter);
 
