@@ -11,3 +11,5 @@ block content
           label(for='password' class='sm:text-center sm:w-[20%]') *Password:
           input(type='password' name='password' class='sm:w-[40%] rounded pl-2 pr-2 text-black' id='password' required)
         button(type='submit' class='font-bold bg-[#F7F6F5] mt-5 text-[#6D4266] pt-2 w-[80%] sm:w-[50%] rounded-xl pb-2 text-center self-center pl-4 pr-4') Log in
+      if message
+        p(class='text-center font-bold') #{message}
