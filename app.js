@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const helmet = require("helmet");
+const compression = require("compression");
 const MongoStore = require("connect-mongo");
 require("./lib/passport");
 
@@ -15,6 +17,8 @@ dotenv.config();
 const indexRouter = require("./routes/index");
 
 const app = express();
+app.use(helmet());
+app.use(compression());
 
 mongoose.set("strictQuery", false);
 async function main() {
