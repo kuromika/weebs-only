@@ -2,18 +2,19 @@ extends layout
 
 block content
   main
-    h1 Create Account
-    form(method='POST' action='' enctype='multipart/form-data')
-      div
-        label(for='username') Username (required): 
-        input(type='text' name='username' id='username' required)
-      div
-        label(for='password') Password (required):
-        input(type='password' name='password' id='password' required)
-      div
-        label(for='pfp') Profile picture:
-        input(type='file' name='pfp' id='pfp' required accept=".png,.jpeg,.jpg,.webp")
-      div
-        label(for='admin-pass') Admin Code (leave empty if unkown): 
-        input(type='password' name='admin-pass' id='admin-pass')
-      button(type='submit') Create
+    div(class='flex flex-col bg-[#6D4266] text-[#F7F6F5] p-5 pb-8 pt-8 rounded-xl gap-10 mt-[10vh] text-lg')
+      h1(class='text-center font-bold text-2xl') Create Account
+      form(method='POST' action='' enctype='multipart/form-data' class='flex flex-col gap-3')
+        div(class='flex flex-col justify-start flex-wrap gap-2 sm:gap-5 sm:items-center sm:justify-center sm:flex-row')
+          label(for='username' class='sm:text-center sm:w-[20%] font-bold') *Username:
+          input(type='text' name='username' id='username' class='sm:w-[40%] rounded pl-2 pr-2 text-black' required)
+        div(class='flex flex-col justify-start flex-wrap gap-2 sm:gap-5 sm:items-center sm:justify-center sm:flex-row')
+          label(for='password' class='sm:text-center sm:w-[20%] font-bold') *Password: 
+          input(type='password' name='password' id='password' class='sm:w-[40%] rounded pl-2 pr-2 text-black' required)
+        div(class='flex flex-col justify-start flex-wrap gap-2 sm:gap-5 sm:items-center sm:justify-center sm:flex-row')
+          label(for='pfp' class='sm:text-center sm:w-[20%] font-bold') *Profile picture:
+          input(type='file' name='pfp' id='pfp' required accept=".png,.jpeg,.jpg,.webp" class='sm:w-[40%]')
+        div(class='flex flex-col justify-start flex-wrap gap-2 sm:gap-5 sm:items-center sm:justify-center sm:flex-row')
+          label(for='admin-pass' class='sm:text-center sm:w-[20%] font-bold') Admin Code:
+          input(type='password' name='admin-pass' id='admin-pass' class='sm:w-[40%] rounded pl-2 pr-2 text-black')
+        button(type='submit' class='font-bold bg-[#F7F6F5] mt-5 text-[#6D4266] pt-2 w-[80%] sm:w-[50%] rounded-xl pb-2 text-center self-center pl-4 pr-4') Create

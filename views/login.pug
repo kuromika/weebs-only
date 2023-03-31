@@ -1,13 +1,13 @@
 extends layout
 
 block content
-  main
-    h1 Login Page
-    form(method='POST' action='')
-      div
-        label(for='username') Username (required): 
-        input(type='text' name='username' id='username' required)
-      div
-        label(for='password') Password (required):
-        input(type='password' name='password' id='password' required)
-      button(type='submit') Login
+    div(class='flex flex-col bg-[#6D4266] text-[#F7F6F5] p-5 pb-8 pt-8 rounded-xl gap-10 mt-[10vh] text-lg')
+      h2(class='text-center font-bold text-2xl') Sign in to Weebs Only
+      form(method='POST' action='' class='flex flex-col gap-3')
+        div(class='flex flex-col justify-start flex-wrap gap-2 sm:gap-5 sm:items-center sm:justify-center sm:flex-row')
+          label(for='username' class='sm:text-center sm:w-[20%]') *Username: 
+          input(type='text' name='username' class='sm:w-[40%] rounded pl-2 pr-2 text-black' id='username' required)
+        div(class='flex flex-col justify-start flex-wrap gap-2 sm:gap-5 sm:items-center sm:justify-center sm:flex-row')
+          label(for='password' class='sm:text-center sm:w-[20%]') *Password:
+          input(type='password' name='password' class='sm:w-[40%] rounded pl-2 pr-2 text-black' id='password' required)
+        button(type='submit' class='font-bold bg-[#F7F6F5] mt-5 text-[#6D4266] pt-2 w-[80%] sm:w-[50%] rounded-xl pb-2 text-center self-center pl-4 pr-4') Log in
