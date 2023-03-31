@@ -12,6 +12,7 @@ const {
   postMembership,
   postMessage,
   postImage,
+  postDeleteMessage,
 } = require("../controllers/index");
 
 router.get("/", getIndex);
@@ -29,5 +30,7 @@ router.post("/membership", postMembership);
 
 router.post("/sendtext", postMessage);
 router.post("/sendimage", postImage);
+
+router.post("/deletemessage", postDeleteMessage);
 
 module.exports = router;
